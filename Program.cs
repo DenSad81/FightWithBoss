@@ -16,7 +16,6 @@ class Program
         int deltaMana = 10;
         string typeOfAttack;
         string typeOfAttackPrewiusRaund = "";
-
         int usualAttackDamageMin = 15;
         int usualAttackDamageMax = 25;
         int fireBallAttackDamageMin = 0;
@@ -25,10 +24,8 @@ class Program
         int remedyAttackMax = 33;
         int blowAttackDamageMin = 0;
         int blowAttackDamageMax = 100;
-
         int countOfRound = 1;
         int countUseRemedyMagik = 0;
-
         int limitRemedyMagikTry = 3;
         Random random = new Random();
 

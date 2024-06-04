@@ -7,6 +7,8 @@ class Program
         const string FireBallAttack = "2";
         const string RemedyAttack = "3";
         const string BlowAttack = "4";
+        string typeOfAttack;
+        string typeOfAttackPrewiusRaund = "";
         int enemyHealth = 100;
         int heroHealth = 100;
         int heroMana = 100;
@@ -14,8 +16,6 @@ class Program
         int heroHealthMax = heroHealth;
         int heroManaMax = heroMana;
         int deltaMana = 10;
-        string typeOfAttack;
-        string typeOfAttackPrewiusRaund = "";
         int usualAttackDamageMin = 15;
         int usualAttackDamageMax = 25;
         int fireBallAttackDamageMin = 0;
@@ -25,11 +25,11 @@ class Program
         int blowAttackDamageMin = 0;
         int blowAttackDamageMax = 100;
         int countOfRound = 1;
-        int countUseRemedyMagik = 0;
-        int limitRemedyMagikTry = 3;
+        int countUseRemedyAttack = 0;
+        int limitRemedyAttackTry = 3;
         Random random = new Random();
 
-        while ((enemyHealth > 0) && (heroHealth > 0) && (heroMana > 0))
+        while ((enemyHealth > 0) && (heroHealth > 0))
         {
             Console.WriteLine($"Герой жизнь {heroHealth}    герой мана {heroMana}   злодей жизнь {enemyHealth}");
             Console.WriteLine($"Раунд № {countOfRound}");
@@ -47,14 +47,20 @@ class Program
                     heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     break;
                 case FireBallAttack:
-                    heroMana -= deltaMana;
-                    enemyHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
+
+                    if ((heroMana -= deltaMana) > 0)
+                        enemyHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
+                    else
+                        enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
+
                     heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     break;
                 case BlowAttack:
 
                     if (typeOfAttackPrewiusRaund == FireBallAttack)
+                    {
                         enemyHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
+                    }
                     else
                     {
                         enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
@@ -66,9 +72,9 @@ class Program
                     heroHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
                     break;
                 case RemedyAttack:
-                    countUseRemedyMagik++;
+                    countUseRemedyAttack++;
 
-                    if (countUseRemedyMagik <= limitRemedyMagikTry)
+                    if (countUseRemedyAttack <= limitRemedyAttackTry)
                     {
                         heroHealth += random.Next(remedyAttackMin, remedyAttackMax);
 
@@ -81,7 +87,9 @@ class Program
                             heroMana = heroManaMax;
                     }
                     else
+                    {
                         Console.WriteLine("Вы потратили все запасы восстановления");
+                    }
 
                     enemyHealth += random.Next(remedyAttackMin, remedyAttackMax);
 
@@ -101,13 +109,11 @@ class Program
         Console.WriteLine($"Конец игры");
         Console.WriteLine($"Герой жизнь {heroHealth}    герой мана {heroMana}   злодей жизнь {enemyHealth}");
 
-        if ((heroHealth <= 0 || heroMana <= 0) && enemyHealth <= 0)
+        if (heroHealth <= 0 && enemyHealth <= 0)
             Console.WriteLine("Оба проиграли");
-        else if (heroHealth <= 0 || heroMana <= 0)
+        else if (heroHealth <= 0)
             Console.WriteLine("Враг победил");
         else if (enemyHealth <= 0)
             Console.WriteLine("Герой победил");
     }
 }
-
-

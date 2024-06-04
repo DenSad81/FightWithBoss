@@ -2,11 +2,13 @@
 
 class Program
 {
-    static void Main(string[] args) {
+    static void Main(string[] args)
+    {
         const string UsualAttack = "1";
         const string FireBallAttack = "2";
         const string RemedyAttack = "3";
         const string BlowAttack = "4";
+
         string typeOfAttack;
         string typeOfAttackPrewiusRaund = "";
         int enemyHealth = 100;
@@ -46,8 +48,8 @@ class Program
                     enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     break;
-                case FireBallAttack:
 
+                case FireBallAttack:
                     if ((heroMana -= deltaMana) > 0)
                         enemyHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
                     else
@@ -55,8 +57,8 @@ class Program
 
                     heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     break;
-                case BlowAttack:
 
+                case BlowAttack:
                     if (typeOfAttackPrewiusRaund == FireBallAttack)
                     {
                         enemyHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
@@ -71,6 +73,7 @@ class Program
 
                     heroHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
                     break;
+
                 case RemedyAttack:
                     countUseRemedyAttack++;
 
@@ -97,6 +100,7 @@ class Program
                         enemyHealth = enemyHealthMax;
 
                     break;
+
                 default:
                     Console.WriteLine("Герой пропускает ход, атака босса");
                     heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);

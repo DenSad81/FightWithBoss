@@ -55,7 +55,7 @@ class Program
                     else
                         enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
 
-                    heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
+                    heroHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
                     break;
 
                 case BlowAttack:
@@ -94,11 +94,6 @@ class Program
                         Console.WriteLine("Вы потратили все запасы восстановления");
                     }
 
-                    enemyHealth += random.Next(remedyAttackMin, remedyAttackMax);
-
-                    if (enemyHealth > enemyHealthMax)
-                        enemyHealth = enemyHealthMax;
-
                     break;
 
                 default:
@@ -117,7 +112,7 @@ class Program
             Console.WriteLine("Оба проиграли");
         else if (heroHealth <= 0)
             Console.WriteLine("Враг победил");
-        else if (enemyHealth <= 0)
+        else
             Console.WriteLine("Герой победил");
     }
 }

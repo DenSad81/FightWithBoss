@@ -14,7 +14,6 @@ class Program
         int enemyHealth = 100;
         int heroHealth = 100;
         int heroMana = 100;
-        int enemyHealthMax = enemyHealth;
         int heroHealthMax = heroHealth;
         int heroManaMax = heroMana;
         int deltaMana = 10;
@@ -46,37 +45,26 @@ class Program
             {
                 case UsualAttack:
                     enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
-                    heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     break;
 
                 case FireBallAttack:
                     if ((heroMana -= deltaMana) > 0)
                         enemyHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
                     else
-                        enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
+                        Console.WriteLine("Маны <=0, атака не возможна");
 
-                    heroHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
                     break;
 
                 case BlowAttack:
                     if (typeOfAttackPrewiusRaund == FireBallAttack)
-                    {
                         enemyHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
-                    }
                     else
-                    {
-                        enemyHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                         Console.WriteLine("Вы попытались использовать атаку взрыв," +
-                                          " не после огненного шара," +
-                                          " вместо нее теперь будет использоватся обычная атака");
-                    }
+                                            " не после огненного шара, атака не возможна");
 
-                    heroHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
                     break;
 
                 case RemedyAttack:
-                    countUseRemedyAttack++;
-
                     if (countUseRemedyAttack <= limitRemedyAttackTry)
                     {
                         heroHealth += random.Next(remedyAttackMin, remedyAttackMax);
@@ -94,10 +82,25 @@ class Program
                         Console.WriteLine("Вы потратили все запасы восстановления");
                     }
 
+                    countUseRemedyAttack++;
                     break;
 
                 default:
-                    Console.WriteLine("Герой пропускает ход, атака босса");
+                    Console.WriteLine("Не верный выбор герой пропускает ход");
+                    break;
+            }
+
+            switch (typeOfAttack)
+            {
+                case FireBallAttack:
+                    heroHealth -= random.Next(fireBallAttackDamageMin, fireBallAttackDamageMax);
+                    break;
+
+                case BlowAttack:
+                    heroHealth -= random.Next(blowAttackDamageMin, blowAttackDamageMax);
+                    break;
+
+                default:
                     heroHealth -= random.Next(usualAttackDamageMin, usualAttackDamageMax);
                     break;
             }
